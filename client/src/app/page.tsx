@@ -6,7 +6,7 @@ import { AppHeader } from "@/components/simulation/AppHeader";
 import { SimulationInputs } from "@/components/simulation/SimulationInputs";
 import { SimulationResults } from "@/components/simulation/SimulationResults";
 import { ProjectionChart } from "@/components/simulation/ProjectionChart";
-import { SimulationType } from "@/types/simulation";
+import { SimulationType, SimulationResult } from "@/types/simulation";
 
 export default function Home() {
   const [fund, setFund] = useState("ATTIJARI ACTIONS");
@@ -15,7 +15,7 @@ export default function Home() {
   const [years, setYears] = useState(5);
   const [fee, setFee] = useState(0.018);
   const [nPaths, setNPaths] = useState(5000);
-  const [result, setResult] = useState<any>(null);
+  const [result, setResult] = useState<SimulationResult | null>(null);
   const [simulationType, setSimulationType] =
     useState<SimulationType>("deterministic");
   const [loading, setLoading] = useState(false);

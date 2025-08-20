@@ -8,11 +8,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-
-type SimulationType = "deterministic" | "monte-carlo";
+import { SimulationResult, SimulationType } from "@/types/simulation";
 
 interface SimulationResultsProps {
-  result: any;
+  result: SimulationResult | null;
   simulationType: SimulationType;
   mad: Intl.NumberFormat;
   percent: Intl.NumberFormat;
@@ -77,7 +76,7 @@ function DeterministicResults({
   mad,
   percent,
 }: {
-  result: any;
+  result: SimulationResult;
   mad: Intl.NumberFormat;
   percent: Intl.NumberFormat;
 }) {
@@ -116,7 +115,7 @@ function MonteCarloResults({
   mad,
   percent,
 }: {
-  result: any;
+  result: SimulationResult;
   mad: Intl.NumberFormat;
   percent: Intl.NumberFormat;
 }) {

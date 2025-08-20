@@ -17,8 +17,10 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
+import { SimulationResult } from "@/types/simulation";
+
 interface ProjectionChartProps {
-  result: any;
+  result: SimulationResult | null;
   simulationType: "deterministic" | "monte-carlo";
 }
 
