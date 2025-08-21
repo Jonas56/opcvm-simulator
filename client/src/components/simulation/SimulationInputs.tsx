@@ -80,7 +80,6 @@ export function SimulationInputs({
 }: SimulationInputsProps) {
   const handleSimulationTypeChange = (type: SimulationType) => {
     setSimulationType(type);
-    // Clear results when switching types - this will be handled by parent
   };
 
   return (
@@ -98,7 +97,7 @@ export function SimulationInputs({
             id="fund"
             value={fund}
             onChange={(e) => setFund(e.target.value)}
-            className="flex h-10 w-full rounded-md border border-neutral-200 bg-white px-3 py-2 text-sm ring-offset-background placeholder:text-neutral-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-50"
+            className="flex h-10 w-full rounded-md border border-neutral-200 bg-white px-3 py-2 text-sm ring-offset-background placeholder:text-neutral-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2"
           >
             {FUNDS.map((k) => (
               <option key={k} value={k}>
@@ -221,7 +220,7 @@ export function SimulationInputs({
       <CardFooter className="flex flex-col gap-4">
         <div className="text-sm text-neutral-500 w-full">
           Total contributed:{" "}
-          <span className="font-medium text-neutral-900 dark:text-neutral-100">
+          <span className="font-medium text-neutral-900">
             {mad.format(totalContributed)}
           </span>
         </div>

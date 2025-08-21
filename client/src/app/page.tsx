@@ -75,46 +75,48 @@ export default function Home() {
 
   const handleSimulationTypeChange = (type: SimulationType) => {
     setSimulationType(type);
-    setResult(null); // Clear previous results when switching
+    setResult(null);
   };
 
   return (
     <TooltipProvider>
-      <div className="p-8 max-w-5xl mx-auto space-y-6">
-        <AppHeader />
+      <div className="min-h-screen bg-white">
+        <div className="p-8 max-w-5xl mx-auto space-y-6">
+          <AppHeader />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <SimulationInputs
-            fund={fund}
-            setFund={setFund}
-            initial={initial}
-            setInitial={setInitial}
-            monthly={monthly}
-            setMonthly={setMonthly}
-            years={years}
-            setYears={setYears}
-            fee={fee}
-            setFee={setFee}
-            nPaths={nPaths}
-            setNPaths={setNPaths}
-            simulationType={simulationType}
-            setSimulationType={handleSimulationTypeChange}
-            onRunSimulation={runSimulation}
-            loading={loading}
-            totalContributed={totalContributed}
-            mad={mad}
-            percent={percent}
-          />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <SimulationInputs
+              fund={fund}
+              setFund={setFund}
+              initial={initial}
+              setInitial={setInitial}
+              monthly={monthly}
+              setMonthly={setMonthly}
+              years={years}
+              setYears={setYears}
+              fee={fee}
+              setFee={setFee}
+              nPaths={nPaths}
+              setNPaths={setNPaths}
+              simulationType={simulationType}
+              setSimulationType={handleSimulationTypeChange}
+              onRunSimulation={runSimulation}
+              loading={loading}
+              totalContributed={totalContributed}
+              mad={mad}
+              percent={percent}
+            />
 
-          <SimulationResults
-            result={result}
-            simulationType={simulationType}
-            mad={mad}
-            percent={percent}
-          />
+            <SimulationResults
+              result={result}
+              simulationType={simulationType}
+              mad={mad}
+              percent={percent}
+            />
+          </div>
+
+          <ProjectionChart result={result} simulationType={simulationType} />
         </div>
-
-        <ProjectionChart result={result} simulationType={simulationType} />
       </div>
     </TooltipProvider>
   );

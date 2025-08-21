@@ -11,10 +11,10 @@ const buttonVariants = cva(
         default:
           "bg-blue-600 text-white hover:bg-blue-700 focus-visible:ring-blue-400",
         secondary:
-          "bg-neutral-100 text-neutral-900 hover:bg-neutral-200 dark:bg-neutral-800 dark:text-neutral-100 dark:hover:bg-neutral-700",
+          "bg-neutral-100 text-neutral-900 hover:bg-neutral-200",
         outline:
-          "border border-neutral-200 bg-white hover:bg-neutral-100 dark:border-neutral-800 dark:bg-neutral-950 dark:hover:bg-neutral-900",
-        ghost: "hover:bg-neutral-100 dark:hover:bg-neutral-800",
+          "border border-neutral-200 bg-white hover:bg-neutral-100",
+        ghost: "hover:bg-neutral-100",
         link: "text-blue-600 underline-offset-4 hover:underline",
       },
       size: {
