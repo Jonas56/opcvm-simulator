@@ -21,6 +21,8 @@ class Settings(BaseSettings):
         "http://localhost:3001",  # Alternative React port
         "http://127.0.0.1:3000",
         "http://127.0.0.1:3001",
+        "https://opcvm-simulator.vercel.app",
+        "http://opcvm-simulator.vercel.app",
     ]
 
     @validator("BACKEND_CORS_ORIGINS", pre=True)
