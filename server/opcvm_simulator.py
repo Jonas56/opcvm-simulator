@@ -1,5 +1,5 @@
 
-# opcvm_simulator.py
+# Legacy opcvm_simulator.py
 
 """
 OPCVM Investment Simulator (Morocco) — Deterministic + Monte Carlo

@@ -95,6 +95,10 @@ def migrate_funds_data(db: Session):
         default_tax_rate = DEFAULT_TAX_BY_CATEGORY.get(category, 0.20)
         default_volatility = DEFAULT_VOL_BY_CATEGORY.get(category, 0.10)
         
+        # Calculate expected return from cumulative return using CAGR formula
+        expected_return = (1.0 + perf_data["cum_return"]) ** (1.0 / perf_data["horizon_years"]) - 1.0
+        expected_return_percentage = expected_return * 100
+        
         # Create fund record
         fund = Fund(
             name=fund_name,
@@ -106,6 +110,8 @@ def migrate_funds_data(db: Session):
             recommended_holding=metadata.get("recommendedHolding"),
             objective=metadata.get("objective"),
             strategy=metadata.get("strategy"),
+            management_fee=1.5,  # Default management fee of 1.5%
+            expected_return=expected_return_percentage,
             default_tax_rate=default_tax_rate,
             default_volatility=default_volatility
         )

@@ -18,6 +18,8 @@ class FundBase(BaseModel):
     recommended_holding: str = Field(..., description="Recommended holding period")
     objective: str = Field(..., description="Fund investment objective")
     strategy: str = Field(..., description="Fund investment strategy")
+    management_fee: float = Field(..., description="Annual management fee in percentage")
+    expected_return: Optional[float] = Field(None, description="Expected annual return in percentage")
     default_tax_rate: float = Field(..., description="Default tax rate for category")
     default_volatility: float = Field(..., description="Default volatility for category")
 
@@ -38,6 +40,8 @@ class FundUpdate(BaseModel):
     recommended_holding: Optional[str] = None
     objective: Optional[str] = None
     strategy: Optional[str] = None
+    management_fee: Optional[float] = None
+    expected_return: Optional[float] = None
     default_tax_rate: Optional[float] = None
     default_volatility: Optional[float] = None
 

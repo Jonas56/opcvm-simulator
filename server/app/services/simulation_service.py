@@ -32,7 +32,12 @@ class SimulationService:
         if not fund:
             raise ValueError(f"Fund '{simulation_input.fund_name}' not found")
         
-        tax_rate = 0.15 # TODO: Get tax rate from fund
+        # Use fund's default tax rate (already stored as decimal in database)
+        tax_rate = fund.default_tax_rate
+        
+        # Get fund-specific parameters
+        management_fee = fund.management_fee / 100.0 if fund.management_fee is not None else 0.015
+        expected_return = fund.expected_return / 100.0 if fund.expected_return is not None else None
         
         # Run the simulation using OPCVM simulator
         result = simulate_investment(
@@ -40,9 +45,9 @@ class SimulationService:
             initial_amount=simulation_input.initial_investment,
             monthly_contribution=simulation_input.monthly_contribution or 0,
             years=simulation_input.investment_horizon,
-            annual_fee=fund.management_fee / 100.0 if hasattr(fund, 'management_fee') else 0.015,
+            annual_fee=management_fee,
             tax_rate=tax_rate,
-            expected_return_override=fund.expected_return / 100.0 if hasattr(fund, 'expected_return') else None
+            expected_return_override=expected_return
         )
         
         return SimulationResult(
@@ -82,11 +87,15 @@ class SimulationService:
         if not fund:
             raise ValueError(f"Fund '{simulation_input.fund_name}' not found")
         
-        # Use fund's tax rate if not provided (convert from percentage to decimal)
-        tax_rate = (simulation_input.tax_rate or fund.default_tax_rate) / 100.0
+        # Use fund's tax rate if not provided (already stored as decimal in database)
+        tax_rate = simulation_input.tax_rate or fund.default_tax_rate
         
-        # Get fund's volatility (default to 20% if not available)
-        volatility = getattr(fund, 'default_volatility', 20.0) / 100.0
+        # Get fund's volatility (default to 0.20 if not available, already stored as decimal)
+        volatility = getattr(fund, 'default_volatility', 0.20)
+        
+        # Get fund-specific parameters
+        management_fee = fund.management_fee / 100.0 if fund.management_fee is not None else 0.015
+        expected_return = fund.expected_return / 100.0 if fund.expected_return is not None else None
         
         # Run Monte Carlo simulation using OPCVM simulator
         mc_result = monte_carlo_simulate(
@@ -94,9 +103,9 @@ class SimulationService:
             initial_amount=simulation_input.initial_investment,
             monthly_contribution=simulation_input.monthly_contribution or 0,
             years=simulation_input.investment_horizon,
-            annual_fee=getattr(fund, 'management_fee', 1.5) / 100.0,  # Default to 1.5% if not set
+            annual_fee=management_fee,
             n_paths=simulation_input.num_simulations,
-            expected_return_override=getattr(fund, 'expected_return', None),
+            expected_return_override=expected_return,
             annual_vol_override=volatility,
             random_seed=42  # For reproducibility
         )
