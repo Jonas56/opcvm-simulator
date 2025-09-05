@@ -4,12 +4,16 @@ export interface SimulationResult {
   fund_name: string;
   category: string;
   assumed_annual_return: number;
+  annual_fee?: number;
+  tax_rate?: number;
   years: number;
   gross_final_value: number;
   net_final_value: number;
   net_profit_after_tax: number;
   tax_paid: number;
   total_contributed: number;
+  initial_amount?: number;
+  monthly_contribution?: number;
   trajectory?: Array<{ month: number; value: number }>;
   // Monte Carlo specific fields
   assumed_annual_vol?: number;

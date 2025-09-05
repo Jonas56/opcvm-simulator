@@ -1,0 +1,122 @@
+{
+  "ATTIJARI ACTIONS": {
+    "name": "ATTIJARI ACTIONS",
+    "nav": 125.45,
+    "riskProfile": "high",
+    "recommendedHolding": "long",
+    "objective": "Capital appreciation through investment in Moroccan equity markets with focus on large-cap stocks.",
+    "strategy": "Active management strategy targeting growth-oriented companies with strong fundamentals and market leadership positions."
+  },
+  "ATTIJARI AL MOUCHARAKA": {
+    "name": "ATTIJARI AL MOUCHARAKA",
+    "nav": 118.2,
+    "riskProfile": "medium",
+    "recommendedHolding": "long",
+    "objective": "Long-term capital growth by investing in participative finance-compliant equities.",
+    "strategy": "Focus on Sharia-compliant companies with solid growth prospects and prudent leverage."
+  },
+  "ATTIJARI DIVIDEND FUND": {
+    "name": "ATTIJARI DIVIDEND FUND",
+    "nav": 109.85,
+    "riskProfile": "medium",
+    "recommendedHolding": "long",
+    "objective": "Provide regular income and moderate growth through dividend-paying equities.",
+    "strategy": "Select companies with stable dividend history and sustainable payout ratios."
+  },
+  "ATTIJARI PATRIMOINE VALEURS": {
+    "name": "ATTIJARI PATRIMOINE VALEURS",
+    "nav": 111.3,
+    "riskProfile": "medium",
+    "recommendedHolding": "medium",
+    "objective": "Balanced appreciation by investing across quality equities and selective bonds.",
+    "strategy": "Value-oriented stock selection complemented by tactical fixed income exposure."
+  },
+  "FCP ATTIJARI GOLD": {
+    "name": "FCP ATTIJARI GOLD",
+    "nav": 130.75,
+    "riskProfile": "high",
+    "recommendedHolding": "long",
+    "objective": "Exposure to gold-related assets to hedge against inflation and market stress.",
+    "strategy": "Invest in gold-linked instruments and miners with strong balance sheets."
+  },
+  "ATTIJARI DIVERSIFIE": {
+    "name": "ATTIJARI DIVERSIFIE",
+    "nav": 106.4,
+    "riskProfile": "medium",
+    "recommendedHolding": "medium",
+    "objective": "Diversified returns through a mix of equities and fixed income.",
+    "strategy": "Dynamic asset allocation targeting balanced risk-adjusted performance."
+  },
+  "ATTIJARI PATRIMOINE DIVERSIFIE": {
+    "name": "ATTIJARI PATRIMOINE DIVERSIFIE",
+    "nav": 108.1,
+    "riskProfile": "medium",
+    "recommendedHolding": "medium",
+    "objective": "Preserve and grow capital via diversified multi-asset exposure.",
+    "strategy": "Blend of domestic equities, bonds, and cash with periodic rebalancing."
+  },
+  "WG OBLIGATIONS": {
+    "name": "WG OBLIGATIONS",
+    "nav": 102.9,
+    "riskProfile": "low",
+    "recommendedHolding": "medium",
+    "objective": "Stable income generation from a portfolio of investment-grade bonds.",
+    "strategy": "Primarily invest in high-quality sovereign and corporate bonds with controlled duration."
+  },
+  "ATTIJARI PATRIMOINE TAUX": {
+    "name": "ATTIJARI PATRIMOINE TAUX",
+    "nav": 103.6,
+    "riskProfile": "low",
+    "recommendedHolding": "short",
+    "objective": "Capital preservation with steady income through short-duration rate products.",
+    "strategy": "Focus on short-term government paper and high-grade money market instruments."
+  },
+  "PATRIMOINE OBLIGATIONS": {
+    "name": "PATRIMOINE OBLIGATIONS",
+    "nav": 104.25,
+    "riskProfile": "low",
+    "recommendedHolding": "medium",
+    "objective": "Conservative income-oriented strategy emphasizing bond stability.",
+    "strategy": "Maintain diversified bond holdings with disciplined interest rate risk management."
+  },
+  "ATTIJARI MONETAIRE PLUS": {
+    "name": "ATTIJARI MONETAIRE PLUS",
+    "nav": 100.9,
+    "riskProfile": "low",
+    "recommendedHolding": "short",
+    "objective": "Liquidity and capital preservation via money market instruments.",
+    "strategy": "Invest in treasury bills and term deposits with very short maturities."
+  },
+  "OBLIDYNAMIC": {
+    "name": "OBLIDYNAMIC",
+    "nav": 101.2,
+    "riskProfile": "low",
+    "recommendedHolding": "short",
+    "objective": "Dynamic money market management for optimal short-term returns.",
+    "strategy": "Active management of money market instruments with focus on liquidity and yield optimization."
+  },
+  "FCP CAP INSTITUTIONS": {
+    "name": "FCP CAP INSTITUTIONS",
+    "nav": 100.8,
+    "riskProfile": "low",
+    "recommendedHolding": "short",
+    "objective": "Institutional-grade money market fund for corporate and institutional investors.",
+    "strategy": "Invest in high-quality, short-term money market instruments suitable for institutional portfolios."
+  },
+  "ATTIJARI TRESORERIE": {
+    "name": "ATTIJARI TRESORERIE",
+    "nav": 100.5,
+    "riskProfile": "low",
+    "recommendedHolding": "short",
+    "objective": "Ultra-conservative treasury management with maximum liquidity.",
+    "strategy": "Focus on government treasury bills and highly liquid short-term instruments."
+  },
+  "CAP MONETAIRE PREMIERE": {
+    "name": "CAP MONETAIRE PREMIERE",
+    "nav": 100.3,
+    "riskProfile": "low",
+    "recommendedHolding": "short",
+    "objective": "Premium money market fund offering competitive short-term yields.",
+    "strategy": "Selective investment in high-quality money market instruments with enhanced yield potential."
+  }
+}

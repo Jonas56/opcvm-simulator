@@ -197,6 +197,7 @@ def monte_carlo_simulate(
         max_drawdown_mean=0.0,
         calmar=mu/0.2 if category=="Actions" else mu/0.1
     )
+
     return MonteCarloSummary(fund_name, category, years, mu, sigma, annual_fee, tax_rate,
                              total_contributed, n_paths, p5, p50, p95, prob_loss, risk)
 
