@@ -64,7 +64,7 @@ def load_json_funds_data():
         current_dir = os.path.dirname(os.path.abspath(__file__))
         # Go up one level to the server directory
         server_dir = os.path.dirname(current_dir)
-        funds_file_path = os.path.join(server_dir, "funds.json")
+        funds_file_path = os.path.join(server_dir, "data", "funds.json")
         
         with open(funds_file_path, 'r', encoding='utf-8') as file:
             return json.load(file)
