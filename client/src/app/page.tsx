@@ -1,15 +1,19 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import { AppHeader } from "@/components/simulation/AppHeader";
 import { SimulationInputs } from "@/components/simulation/SimulationInputs";
 import { SimulationResults } from "@/components/simulation/SimulationResults";
 import { ProjectionChart } from "@/components/simulation/ProjectionChart";
+import { FundInfo } from "@/components/simulation/FundInfo";
 import { SimulationType, SimulationResult } from "@/types/simulation";
+import { useFunds } from "@/hooks/useFunds";
 
 export default function Home() {
-  const [fund, setFund] = useState("ATTIJARI ACTIONS");
+  const [fund, setFund] = useState<string>("");
   const [initial, setInitial] = useState(100000);
   const [monthly, setMonthly] = useState(3000);
   const [years, setYears] = useState(5);
@@ -44,7 +48,34 @@ export default function Home() {
     [initial, monthly, years]
   );
 
+  // Use the custom hook to fetch funds data
+  const { funds, loading: fundsLoading, error: fundsError } = useFunds();
+
+  // Automatically select the first fund when funds data loads
+  useEffect(() => {
+    if (funds && Object.keys(funds).length > 0 && !fund) {
+      const firstFundKey = Object.keys(funds)[0];
+      const firstFundName = funds[firstFundKey].name;
+      setFund(firstFundName);
+    }
+  }, [funds, fund]);
+
+  // Get current fund information
+  const currentFundInfo = useMemo(() => {
+    if (!funds || !fund) return null;
+    // Find the fund by name
+    const fundEntry = Object.entries(funds).find(
+      ([, fundInfo]) => fundInfo.name === fund
+    );
+    return fundEntry ? fundEntry[1] : null;
+  }, [funds, fund]);
+
   async function runSimulation() {
+    if (!fund) {
+      console.error("No fund selected");
+      return;
+    }
+
     try {
       setLoading(true);
       const endpoint =
@@ -54,11 +85,13 @@ export default function Home() {
 
       const requestBody = {
         fund_name: fund,
-        initial_amount: initial,
+        initial_investment: initial,
         monthly_contribution: monthly,
-        years,
-        annual_fee: fee,
-        ...(simulationType === "monte-carlo" && { n_paths: nPaths }),
+        investment_horizon: years,
+        ...(simulationType === "monte-carlo" && {
+          num_simulations: nPaths,
+          confidence_level: 0.95,
+        }),
       };
 
       const res = await fetch(endpoint, {
@@ -66,6 +99,13 @@ export default function Home() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(requestBody),
       });
+
+      if (!res.ok) {
+        const errorData = await res.json();
+        console.error("Simulation failed:", errorData);
+        return;
+      }
+
       const data = await res.json();
       setResult(data);
     } finally {
@@ -75,46 +115,72 @@ export default function Home() {
 
   const handleSimulationTypeChange = (type: SimulationType) => {
     setSimulationType(type);
-    setResult(null); // Clear previous results when switching
+    setResult(null);
   };
 
   return (
     <TooltipProvider>
-      <div className="p-8 max-w-5xl mx-auto space-y-6">
-        <AppHeader />
+      <div className="min-h-screen bg-white">
+        <div className="p-8 max-w-7xl mx-auto space-y-6">
+          <AppHeader />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <SimulationInputs
-            fund={fund}
-            setFund={setFund}
-            initial={initial}
-            setInitial={setInitial}
-            monthly={monthly}
-            setMonthly={setMonthly}
-            years={years}
-            setYears={setYears}
-            fee={fee}
-            setFee={setFee}
-            nPaths={nPaths}
-            setNPaths={setNPaths}
-            simulationType={simulationType}
-            setSimulationType={handleSimulationTypeChange}
-            onRunSimulation={runSimulation}
-            loading={loading}
-            totalContributed={totalContributed}
-            mad={mad}
-            percent={percent}
-          />
+          {/* Data Caveat Message */}
+          <Card className="border-amber-200 bg-amber-50">
+            <CardContent className="p-4">
+              <div className="flex items-center gap-3">
+                <Badge variant="warning" className="shrink-0">
+                  ⚠️ Important Notice
+                </Badge>
+                <div className="text-sm text-amber-800">
+                  <strong>Data Disclaimer:</strong> The fund data and
+                  performance metrics shown in this simulator do not reflect
+                  current market conditions. We are actively working on
+                  synchronizing with real-time market data. Please use this tool
+                  for educational and planning purposes only.
+                </div>
+              </div>
+            </CardContent>
+          </Card>
 
-          <SimulationResults
-            result={result}
-            simulationType={simulationType}
-            mad={mad}
-            percent={percent}
-          />
+          {/* Fund Information Section */}
+          <FundInfo fundInfo={currentFundInfo} mad={mad} />
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <SimulationInputs
+              funds={funds}
+              fundsLoading={fundsLoading}
+              fundsError={fundsError}
+              fund={fund}
+              setFund={setFund}
+              initial={initial}
+              setInitial={setInitial}
+              monthly={monthly}
+              setMonthly={setMonthly}
+              years={years}
+              setYears={setYears}
+              fee={fee}
+              setFee={setFee}
+              nPaths={nPaths}
+              setNPaths={setNPaths}
+              simulationType={simulationType}
+              setSimulationType={handleSimulationTypeChange}
+              onRunSimulation={runSimulation}
+              loading={loading}
+              totalContributed={totalContributed}
+              mad={mad}
+              percent={percent}
+            />
+
+            <SimulationResults
+              result={result}
+              simulationType={simulationType}
+              mad={mad}
+              percent={percent}
+            />
+          </div>
+
+          <ProjectionChart result={result} simulationType={simulationType} />
         </div>
-
-        <ProjectionChart result={result} simulationType={simulationType} />
       </div>
     </TooltipProvider>
   );

@@ -82,25 +82,25 @@ function DeterministicResults({
 }) {
   return (
     <div className="grid grid-cols-2 gap-4">
-      <div className="rounded-lg border border-neutral-200 p-4 dark:border-neutral-800">
+      <div className="rounded-lg border border-neutral-200 p-4">
         <div className="text-xs text-neutral-500">Assumed annual return</div>
         <div className="text-lg font-semibold">
           {percent.format(result.assumed_annual_return || 0)}
         </div>
       </div>
-      <div className="rounded-lg border border-neutral-200 p-4 dark:border-neutral-800">
+      <div className="rounded-lg border border-neutral-200 p-4">
         <div className="text-xs text-neutral-500">Net final value</div>
         <div className="text-lg font-semibold">
           {mad.format(result.net_final_value || 0)}
         </div>
       </div>
-      <div className="rounded-lg border border-neutral-200 p-4 dark:border-neutral-800">
+      <div className="rounded-lg border border-neutral-200 p-4">
         <div className="text-xs text-neutral-500">Net profit (after tax)</div>
         <div className="text-lg font-semibold">
           {mad.format(result.net_profit_after_tax || 0)}
         </div>
       </div>
-      <div className="rounded-lg border border-neutral-200 p-4 dark:border-neutral-800">
+      <div className="rounded-lg border border-neutral-200 p-4">
         <div className="text-xs text-neutral-500">Tax paid</div>
         <div className="text-lg font-semibold">
           {mad.format(result.tax_paid || 0)}
@@ -122,13 +122,13 @@ function MonteCarloResults({
   return (
     <div className="space-y-4">
       <div className="grid grid-cols-2 gap-4">
-        <div className="rounded-lg border border-neutral-200 p-4 dark:border-neutral-800">
+        <div className="rounded-lg border border-neutral-200 p-4">
           <div className="text-xs text-neutral-500">Assumed annual return</div>
           <div className="text-lg font-semibold">
             {percent.format(result.assumed_annual_return || 0)}
           </div>
         </div>
-        <div className="rounded-lg border border-neutral-200 p-4 dark:border-neutral-800">
+        <div className="rounded-lg border border-neutral-200 p-4">
           <div className="text-xs text-neutral-500">Annual volatility</div>
           <div className="text-lg font-semibold">
             {percent.format(result.assumed_annual_vol || 0)}
@@ -136,7 +136,7 @@ function MonteCarloResults({
         </div>
       </div>
 
-      <div className="rounded-lg border border-neutral-200 p-4 dark:border-neutral-800">
+      <div className="rounded-lg border border-neutral-200 p-4">
         <div className="text-xs text-neutral-500 mb-2">Percentile Outcomes</div>
         <div className="grid grid-cols-3 gap-4">
           <div>
@@ -161,13 +161,13 @@ function MonteCarloResults({
       </div>
 
       <div className="grid grid-cols-2 gap-4">
-        <div className="rounded-lg border border-neutral-200 p-4 dark:border-neutral-800">
+        <div className="rounded-lg border border-neutral-200 p-4">
           <div className="text-xs text-neutral-500">Probability of loss</div>
           <div className="text-lg font-semibold">
             {percent.format(result.prob_loss || 0)}
           </div>
         </div>
-        <div className="rounded-lg border border-neutral-200 p-4 dark:border-neutral-800">
+        <div className="rounded-lg border border-neutral-200 p-4">
           <div className="text-xs text-neutral-500">Sharpe ratio</div>
           <div className="text-lg font-semibold">
             {(result.risk_metrics?.sharpe || 0).toFixed(2)}

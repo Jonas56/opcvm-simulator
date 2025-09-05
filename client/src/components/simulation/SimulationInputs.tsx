@@ -18,24 +18,14 @@ import {
   TooltipContent,
 } from "@/components/ui/tooltip";
 import { Info, Play, BarChart3 } from "lucide-react";
-
-const FUNDS = [
-  "ATTIJARI ACTIONS",
-  "ATTIJARI AL MOUCHARAKA",
-  "ATTIJARI DIVIDEND FUND",
-  "ATTIJARI PATRIMOINE VALEURS",
-  "FCP ATTIJARI GOLD",
-  "ATTIJARI DIVERSIFIE",
-  "ATTIJARI PATRIMOINE DIVERSIFIE",
-  "WG OBLIGATIONS",
-  "ATTIJARI PATRIMOINE TAUX",
-  "PATRIMOINE OBLIGATIONS",
-  "ATTIJARI MONETAIRE PLUS",
-];
+import { FundInfo } from "@/types/fund";
 
 type SimulationType = "deterministic" | "monte-carlo";
 
 interface SimulationInputsProps {
+  funds: Record<string, FundInfo> | null;
+  fundsLoading: boolean;
+  fundsError: string | null;
   fund: string;
   setFund: (fund: string) => void;
   initial: number;
@@ -58,6 +48,9 @@ interface SimulationInputsProps {
 }
 
 export function SimulationInputs({
+  funds,
+  fundsLoading,
+  fundsError,
   fund,
   setFund,
   initial,
@@ -80,7 +73,6 @@ export function SimulationInputs({
 }: SimulationInputsProps) {
   const handleSimulationTypeChange = (type: SimulationType) => {
     setSimulationType(type);
-    // Clear results when switching types - this will be handled by parent
   };
 
   return (
@@ -98,13 +90,22 @@ export function SimulationInputs({
             id="fund"
             value={fund}
             onChange={(e) => setFund(e.target.value)}
-            className="flex h-10 w-full rounded-md border border-neutral-200 bg-white px-3 py-2 text-sm ring-offset-background placeholder:text-neutral-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-50"
+            disabled={fundsLoading}
+            className="flex h-10 w-full rounded-md border border-neutral-200 bg-white px-3 py-2 text-sm ring-offset-background placeholder:text-neutral-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {FUNDS.map((k) => (
-              <option key={k} value={k}>
-                {k}
-              </option>
-            ))}
+            {fundsLoading ? (
+              <option>Loading funds...</option>
+            ) : fundsError ? (
+              <option>Error loading funds</option>
+            ) : funds && Object.keys(funds).length > 0 ? (
+              Object.entries(funds).map(([fundKey, fundInfo]) => (
+                <option key={fundKey} value={fundInfo.name}>
+                  {fundInfo.name || fundKey}
+                </option>
+              ))
+            ) : (
+              <option>No funds available</option>
+            )}
           </select>
         </div>
 
@@ -221,7 +222,7 @@ export function SimulationInputs({
       <CardFooter className="flex flex-col gap-4">
         <div className="text-sm text-neutral-500 w-full">
           Total contributed:{" "}
-          <span className="font-medium text-neutral-900 dark:text-neutral-100">
+          <span className="font-medium text-neutral-900">
             {mad.format(totalContributed)}
           </span>
         </div>
@@ -245,12 +246,14 @@ export function SimulationInputs({
         </div>
         <Button
           onClick={onRunSimulation}
-          disabled={loading}
+          disabled={loading || !fund}
           className="w-full gap-2"
         >
           <Play className="h-4 w-4" />{" "}
           {loading
             ? "Simulating..."
+            : !fund
+            ? "Select a fund first"
             : `Run ${
                 simulationType === "deterministic"
                   ? "Deterministic"
